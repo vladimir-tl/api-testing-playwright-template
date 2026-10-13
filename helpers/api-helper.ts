@@ -5,9 +5,11 @@ import { StatusCodes } from 'http-status-codes'
 import { expect } from '@playwright/test'
 
 export async function fetchJwt(request: APIRequestContext, login: Login): Promise<string> {
+  // send request POST /login
   const authResponse = await request.post(baseUrl + loginEndpoint, {
     data: login,
   })
+  // check response and extract token
   if (authResponse.status() !== StatusCodes.OK) {
     throw new Error(`Authorization failed. Status: ${authResponse.status()}`)
   }
